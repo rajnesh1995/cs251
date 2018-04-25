@@ -1,0 +1,151 @@
+<html>
+<head>
+<title> Registration form 
+</title>
+
+<script>
+function isNumeric(number)
+{
+	var chars=/^[0-9]+$/;
+	if (number.match(chars))
+	{
+		return true;
+	}
+	
+}
+
+function checkEmail(email)
+{
+	var position=email.indexOf("@");
+	if ((position==-1) && (postion < 1) && (position >= email.length - 5))
+	{
+		return false;		
+	}
+	
+	var postion2=email.indexOf(".com");
+	if((email.length-postion2)!=4)
+	{
+		return false;
+	}
+	var list=email.split("@");
+	var chars=/^[a-zA-Z]+$/;
+	if (!list[0].match(chars))
+	{
+		return false;
+	}
+	var list2=list[1].split(".");
+	if(!list1[0].match(chars))
+	{
+		return false;
+	}
+	
+	return true;
+	 
+}
+
+function isAllLetters(str)
+{
+	var chars=/^[a-zA-Z ]+$/;
+	if (str.match(chars))
+	{
+		return true;
+	}
+}
+
+function isAlphaNumeric(pass)
+{
+	var chars=/^[a-zA-Z0-9]+$/;
+	if (pass.match(chars))
+	{
+		return true;
+	}
+}
+
+function passwordtype()
+{
+	document.getElementById("password").type="password";
+
+}
+
+function validateform()
+{
+	
+	function checkAllFields()
+	{
+		var name=document.registration.name.value;
+		if ( !isAllLetters(name) || name.length > 20)
+		{
+			document.registration.name.value="";
+			document.getElementById("nameerror").innerHTML="Max 20 characters allowed";
+			return false;
+		}
+	
+		var address=document.registration.address.value;
+		if (address.length > 100)
+		{
+			document.registration.address.value="";
+			document.getElementById("addresserror").innerHTML="Max 100 characters allowed";
+			return false;
+		}
+		var email=document.registration.email.value;
+		if(!checkEmail(email))
+		{
+			document.registration.email.value="";
+			document.getElementById("emailerror").innerHTML="Of the form someone@xyz.com";
+			return false;
+		}
+
+		var mobile=document.registration.mobileNo.value;
+		if( !isNumeric(mobile) || mobile.length !=10)
+		{
+			document.registration.mobileNo.value="";
+			document.getElementById("mobileerror").innerHTML="Only 10 digit numbers are allowed";
+			return false;
+		}
+	
+		var bank=document.registration.bankAcc.value;
+		if( !isNumeric(bank) || bank.length !=5)
+		{
+			document.registration.bankAcc.value="";
+			document.getElementById("bankerror").innerHTML="Only 5 digit numbers are allowed";
+			return false;
+		}
+
+		var pass=document.registration.password.value;
+		if(!isAlphaNumeric(pass) || pass.length > 20)
+		{
+			document.registration.password.value="";
+			document.getElementById("passerror").innerHTML="Only alpha numeric characters of max length 20.";
+			return false;
+		}
+
+		
+		return true;
+	}
+	
+	if(checkAllFields())
+	{
+		document.getElementById("registration").submit();
+	}
+	
+
+	
+	
+}
+</script>
+
+</head>
+<body>
+
+<form name="registration" id="registration" method="post"  action="validate.php" >
+Name: <input type="text" name="name" id="name" required><span id="nameerror"></span></br>
+Address: <input type="text" name="address" required><span id="addresserror"></span></br>
+Email: <input type="text" name="email" required><span id="emailerror"></span></br>
+Mobile No.: <input type="text" name="mobileNo" required><span id="mobileerror"></span></br>
+Bank Acc.: <input type="text" name="bankAcc" required><span id="bankerror"></span></br>
+Bank Password: <input type="text" name="password" id="password" onfocus="passwordtype()" required><span id="passerror"></span></br>
+<button type="button" onclick="validateform()">Submit</button> <span id="result"></span>
+</form>
+
+</body>
+</html>
